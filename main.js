@@ -10,6 +10,7 @@ navToggle.addEventListener("click", () => {
   changeIcon();
 });
 
+
 // close the menu when the user clicks the nav links
 navItem.forEach((item) => {
   item.addEventListener("click", () => {
