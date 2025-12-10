@@ -1,123 +1,136 @@
-const navMenu = document.getElementById("nav-menu"),
-  navToggle = document.getElementById("nav-toggle"),
-  navItem = document.querySelectorAll(".nav__item"),
-  header = document.getElementById("header"),
-  themeToggle = document.getElementById("checkbox");
+document.addEventListener('DOMContentLoaded', () => {
+    
+    /* ==================== SHOW MENU ==================== */
+    const navMenu = document.getElementById('nav-menu'),
+          navToggle = document.getElementById('nav-toggle'),
+          navLinks = document.querySelectorAll('.nav__link');
 
-// open and close menu
-navToggle.addEventListener("click", () => {
-  navMenu.classList.toggle("nav__menu--open");
-  changeIcon();
-});
-
-
-// close the menu when the user clicks the nav links
-navItem.forEach((item) => {
-  item.addEventListener("click", () => {
-    if (navMenu.classList.contains("nav__menu--open")) {
-      navMenu.classList.remove("nav__menu--open");
+    /* Validate if constant exists */
+    if(navToggle){
+        navToggle.addEventListener('click', () =>{
+            // Adds the class defined in CSS to show the menu
+            navMenu.classList.toggle('show-menu')
+            
+            // Toggle Icon between Menu and Close
+            if(navMenu.classList.contains('show-menu')){
+                navToggle.classList.replace('ri-menu-3-line', 'ri-close-line')
+            } else {
+                navToggle.classList.replace('ri-close-line', 'ri-menu-3-line')
+            }
+        })
     }
-    changeIcon();
-  });
+
+    /* ==================== REMOVE MENU MOBILE ON LINK CLICK ==================== */
+    // Loops through every link (Home, About, etc.) and adds a click event
+    navLinks.forEach(n => {
+        n.addEventListener('click', () => {
+            // 1. Remove the class that makes the menu visible
+            navMenu.classList.remove('show-menu')
+            
+            // 2. Reset the hamburger icon
+            if(navToggle){
+                navToggle.classList.replace('ri-close-line', 'ri-menu-3-line')
+            }
+        })
+    })
+
+    /* ==================== CHANGE BACKGROUND HEADER ==================== */
+    const header = document.getElementById('header')
+    
+    window.addEventListener('scroll', () => {
+        // When the scroll is greater than 50 viewport height, add the scroll-header class
+        if (window.scrollY >= 50) {
+            header.classList.add('header--scroll')
+        } else {
+            header.classList.remove('header--scroll')
+        }
+    })
+
+    /* ==================== THEME TOGGLE (DARK/LIGHT) ==================== */
+    const themeToggle = document.getElementById("checkbox");
+    const body = document.body;
+
+    // Check for saved theme preference
+    const loadTheme = () => {
+      const savedTheme = localStorage.getItem("theme");
+      
+      if (savedTheme === "light") {
+        if(themeToggle) themeToggle.checked = true;
+        body.classList.add("light_theme");
+        body.classList.remove("dark_theme");
+      } else {
+        if(themeToggle) themeToggle.checked = false;
+        body.classList.add("dark_theme");
+        body.classList.remove("light_theme");
+      }
+    }
+
+    // Initialize theme on page load
+    loadTheme();
+
+    // Event Listener for Toggle
+    if(themeToggle){
+        themeToggle.addEventListener("change", function() {
+          if (this.checked) {
+            body.classList.add("light_theme");
+            body.classList.remove("dark_theme");
+            localStorage.setItem("theme", "light");
+          } else {
+            body.classList.add("dark_theme");
+            body.classList.remove("light_theme");
+            localStorage.setItem("theme", "dark");
+          }
+        });
+    }
+
+    /* ==================== SCROLL REVEAL ANIMATION ==================== */
+    // Check if ScrollReveal is loaded to prevent errors
+    if (typeof ScrollReveal !== 'undefined') {
+        const sr = ScrollReveal({
+            origin: 'top',
+            distance: '60px',
+            duration: 2500,
+            delay: 400,
+            // reset: true /* Animations repeat */
+        })
+
+        sr.reveal('.hero__content, .about__content')
+        sr.reveal('.hero__img', {delay: 500})
+        sr.reveal('.hero__info-wrapper, .skills__title, .skills__content', {delay: 500, interval: 100})
+        sr.reveal('.qualification__name, .qualification__item', {origin: 'left', interval: 100})
+        sr.reveal('.service__card, .project__content', {interval: 100})
+        sr.reveal('.contact__content', {origin: 'left'})
+        sr.reveal('.contact__btn', {origin: 'right'})
+        sr.reveal('.footer__content', {interval: 100})
+    }
+
+    /* ==================== TESTIMONIAL SWIPER ==================== */
+    // Wrapped in a check to ensure element exists before running Swiper
+    if(document.querySelector(".testimonial__wrapper")){
+        let testimonialSwiper = new Swiper(".testimonial__wrapper", {
+            loop: true,
+            spaceBetween: 30,
+            centeredSlides: true,
+            effect: "coverflow",
+            grabCursor: true,
+            slidesPerView: "auto",
+            coverflowEffect: {
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                520: {
+                    slidesPerView: "auto",
+                },
+            },
+        });
+    }
+
 });
-
-// Change nav toggle icon
-function changeIcon() {
-  if (navMenu.classList.contains("nav__menu--open")) {
-    navToggle.classList.replace("ri-menu-3-line", "ri-close-line");
-  } else {
-    navToggle.classList.replace("ri-close-line", "ri-menu-3-line");
-  }
-}
-
-// Theme Toggle Functionality
-themeToggle.addEventListener("change", function() {
-  if (this.checked) {
-    document.body.classList.add("light_theme");
-    document.body.classList.remove("dark_theme");
-    localStorage.setItem("theme", "light");
-  } else {
-    document.body.classList.add("dark_theme");
-    document.body.classList.remove("light_theme");
-    localStorage.setItem("theme", "dark");
-  }
-});
-
-// Check for saved theme preference
-function loadTheme() {
-  const savedTheme = localStorage.getItem("theme");
-  
-  if (savedTheme === "light") {
-    themeToggle.checked = true;
-    document.body.classList.add("light_theme");
-    document.body.classList.remove("dark_theme");
-  } else {
-    themeToggle.checked = false;
-    document.body.classList.add("dark_theme");
-    document.body.classList.remove("light_theme");
-  }
-}
-
-// Initialize theme on page load
-loadTheme();
-
-// Testimonial Slide
-const testimonialSlide = new Swiper(".testimonial__wrapper", {
-  loop: true,
-  spaceBetween: 30,
-  centeredSlides: true,
-  effect: "coverflow",
-  grabCursor: true,
-  slidesPerView: 1,
-  coverflowEffect: {
-    rotate: 50,
-    stretch: 0,
-    depth: 100,
-    modifier: 1,
-    slideShadows: true,
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-
-  breakpoints: {
-    520: {
-      slidesPerView: "auto",
-    },
-  },
-});
-
-// header scroll animation
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 40) {
-    header.classList.add("header--scroll");
-  } else {
-    header.classList.remove("header--scroll");
-  }
-});
-
-// ScrollReveal animations
-const sr = ScrollReveal({
-  duration: 2000,
-  distance: "100px",
-  delay: 400,
-  reset: false,
-});
-
-sr.reveal(".hero__content, .about__content");
-sr.reveal(".hero__img", { origin: "top" });
-
-sr.reveal(
-  ".hero__info-wrapper, .skills__title, .skills__content, .qualification__name, .qualification__item, .service__card, .project__content, .testimonial__wrapper, .footer__content",
-  {
-    delay: 500,
-    interval: 100,
-  }
-);
-
-sr.reveal(".qualification__footer-text, .contact__content", {
-  origin: "left",
-});
-
-sr.reveal(".qualification__footer .btn, .contact__btn", { origin: "right" });
