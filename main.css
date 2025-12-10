@@ -6,23 +6,19 @@
   --header-height: 3.5rem;
 
   /* ========== Colors ========== */
-  /* Professional Red & Dark Theme Palette */
   --hue-red: 354;
-  --first-color: hsl(var(--hue-red), 70%, 54%);      /* Vibrant Red */
-  --first-color-alt: hsl(var(--hue-red), 65%, 45%);  /* Darker Red (Hover) */
-  
-  --title-color: hsl(0, 0%, 95%);       /* Bright White */
-  --text-color: hsl(0, 0%, 75%);        /* Light Grey */
-  --text-color-light: hsl(0, 0%, 60%);  /* Medium Grey */
-  
-  --body-color: hsl(220, 15%, 10%);       /* Deep Dark Background */
-  --container-color: hsl(220, 15%, 15%);  /* Card Background */
-  --border-color: rgba(255, 255, 255, 0.1); /* Subtle dividers */
+  --first-color: hsl(var(--hue-red), 70%, 54%);
+  --first-color-alt: hsl(var(--hue-red), 65%, 45%);
+  --title-color: hsl(0, 0%, 95%);
+  --text-color: hsl(0, 0%, 75%);
+  --text-color-light: hsl(0, 0%, 60%);
+  --body-color: hsl(220, 15%, 10%);
+  --container-color: hsl(220, 15%, 15%);
+  --border-color: rgba(255, 255, 255, 0.1);
 
-  /* ========== Font and Typography ========== */
+  /* ========== Fonts ========== */
   --body-font: 'Inter', sans-serif;
   --title-font: 'Space Grotesk', sans-serif;
-  
   --big-font-size: 2.5rem;
   --h1-font-size: 1.75rem;
   --h2-font-size: 1.5rem;
@@ -30,8 +26,6 @@
   --normal-font-size: .938rem;
   --small-font-size: .813rem;
   --smaller-font-size: .75rem;
-
-  /* ========== Font Weight ========== */
   --font-medium: 500;
   --font-semi-bold: 600;
   --font-bold: 700;
@@ -40,7 +34,6 @@
   --z-fixed: 100;
 }
 
-/* Responsive Typography for Larger Screens */
 @media screen and (min-width: 968px) {
   :root {
     --big-font-size: 4rem;
@@ -76,7 +69,6 @@ h1, h2, h3, h4 {
   color: var(--title-color);
   font-family: var(--title-font);
   font-weight: var(--font-bold);
-  line-height: 1.2;
 }
 
 ul {
@@ -95,13 +87,11 @@ img {
   display: block;
 }
 
-/* ==================== REUSABLE CSS CLASSES ==================== */
+/* ==================== REUSABLE CLASSES ==================== */
 .container {
   max-width: 1140px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
 .d-grid {
@@ -127,7 +117,6 @@ img {
   letter-spacing: 1px;
 }
 
-/* Red underline decorative element */
 .section__title::after {
   content: '';
   position: absolute;
@@ -190,7 +179,7 @@ img {
   top: 0;
   left: 0;
   z-index: var(--z-fixed);
-  background-color: rgba(15, 20, 30, 0.95); /* Dark transparent background */
+  background-color: rgba(15, 20, 30, 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
   transition: 0.3s;
@@ -213,8 +202,7 @@ img {
   font-family: var(--title-font);
 }
 
-.nav__brand span,
-.nav__brand i {
+.nav__brand span, .nav__brand i {
   color: var(--first-color);
 }
 
@@ -236,7 +224,6 @@ img {
   color: var(--first-color);
 }
 
-/* Hover underline effect */
 .nav__link::after {
   content: '';
   position: absolute;
@@ -252,13 +239,18 @@ img {
   width: 100%;
 }
 
-.nav__toggle,
-.theme-toggle {
+.nav__toggle {
   font-size: 1.5rem;
   color: var(--title-color);
   cursor: pointer;
-  display: none; /* Hidden on desktop */
+  display: none;
 }
+
+.theme-toggle {
+  display: none;
+}
+
+/* Assuming you want to hide standard checkbox */
 
 /* ==================== HERO SECTION ==================== */
 .hero {
@@ -310,7 +302,7 @@ img {
   border-radius: 2rem;
   justify-self: center;
   border: 4px solid var(--container-color);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   transition: 0.3s;
 }
 
@@ -319,7 +311,7 @@ img {
   border-color: var(--first-color);
 }
 
-/* ==================== ABOUT SECTION ==================== */
+/* ==================== OTHER SECTIONS (About, Qualification, etc) ==================== */
 .about__wrapper {
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
@@ -369,7 +361,6 @@ img {
   font-size: 1.2rem;
 }
 
-/* ==================== QUALIFICATION SECTION ==================== */
 .qualification__wrapper {
   max-width: 800px;
   margin: 0 auto 3rem;
@@ -403,7 +394,6 @@ img {
   margin-bottom: 0;
 }
 
-/* Timeline Dot */
 .qualification__item::before {
   content: '';
   width: 16px;
@@ -441,7 +431,6 @@ img {
   color: var(--text-color);
 }
 
-/* ==================== SERVICES SECTION ==================== */
 .service__wrapper {
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
@@ -482,13 +471,7 @@ img {
   letter-spacing: 1px;
 }
 
-.service__link:hover {
-  text-decoration: underline;
-}
-
-/* ==================== PROJECTS SECTION ==================== */
 .project__wrapper {
-  /* Auto-fit for responsiveness */
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2.5rem;
   justify-content: center;
@@ -532,22 +515,16 @@ img {
   gap: 0.5rem;
 }
 
-.project__link i {
-  transition: 0.3s;
-}
-
 .project__link:hover i {
   transform: translateX(5px);
 }
 
-/* ==================== CONTACT SECTION ==================== */
 .contact__wrapper {
   background-color: var(--container-color);
   padding: 5rem 3rem;
   border-radius: 1.5rem;
   text-align: center;
   border: 1px solid var(--border-color);
-  /* Subtle professional gradient */
   background: linear-gradient(145deg, var(--container-color) 0%, rgba(220, 20, 60, 0.05) 100%);
 }
 
@@ -563,9 +540,8 @@ img {
   margin-right: auto;
 }
 
-/* ==================== FOOTER ==================== */
 .footer {
-  background-color: #0a0a0a; /* Even darker than body */
+  background-color: #0a0a0a;
   padding: 5rem 0 2rem;
 }
 
@@ -624,129 +600,7 @@ img {
   padding-top: 2rem;
 }
 
-/* ==================== MEDIA QUERIES (RESPONSIVENESS) ==================== */
-
-/* For Tablets and Small Desktops (max-width: 992px) */
-@media screen and (max-width: 992px) {
-  .section {
-    padding: 4rem 0 2rem;
-  }
-  
-  .nav__menu {
-    position: fixed;
-    top: -100%; /* Hide menu above screen */
-    left: 0;
-    width: 100%;
-    background-color: var(--body-color);
-    padding: 4rem 0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    transition: 0.4s;
-    z-index: var(--z-fixed);
-  }
-
-  /* Class to add via JS to show menu: .show-menu */
-  .nav__menu.show-menu {
-    top: var(--header-height);
-  }
-
-  .nav__list {
-    flex-direction: column;
-    align-items: center;
-    row-gap: 2rem;
-  }
-
-  .nav__toggle {
-    display: block;
-  }
-  
-  /* Collapse Grids to single column */
-  .hero__wrapper,
-  .about__wrapper,
-  .service__wrapper,
-  .footer__wrapper {
-    grid-template-columns: 1fr;
-  }
-
-  /* Hero adjustments */
-  .hero__content {
-    order: 2;
-    text-align: center;
-  }
-
-  .hero__img {
-    order: 1;
-    max-width: 350px;
-  }
-
-  .hero__info {
-    justify-content: center;
-  }
-
-  /* About adjustments */
-  .skills__wrapper {
-    justify-content: space-between;
-  }
-  
-  .footer__wrapper {
-      gap: 2.5rem;
-  }
-}
-
-/* For Mobile Phones (max-width: 576px) */
-@media screen and (max-width: 576px) {
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .hero {
-    padding-top: 6rem;
-  }
-
-  .hero__title {
-    font-size: 2rem;
-  }
-  
-  .hero__img {
-      max-width: 280px;
-  }
-
-  .section__header {
-    margin-bottom: 2.5rem;
-  }
-
-  .section__title {
-    font-size: 1.75rem;
-  }
-  
-  .about__wrapper {
-      gap: 3rem;
-  }
-
-  .skills__wrapper {
-    flex-direction: column;
-    gap: 2rem;
-  }
-  
-  .service__card {
-      padding: 2rem 1.5rem;
-  }
-
-  .contact__wrapper {
-    padding: 3rem 1.5rem;
-  }
-
-  .footer__wrapper {
-    gap: 3rem;
-    text-align: center;
-  }
-
-  .footer__social-list {
-    justify-content: center;
-  }
-}
-
-/* ==================== SCROLLBAR STYLE ==================== */
+/* ==================== SCROLLBAR ==================== */
 ::-webkit-scrollbar {
   width: 0.6rem;
   background-color: var(--body-color);
@@ -759,4 +613,117 @@ img {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--first-color);
+}
+
+
+/* ==================== MEDIA QUERIES (RESPONSIVE FIXES) ==================== */
+/* For Tablets and Mobile (max-width: 992px) */
+@media screen and (max-width: 992px) {
+
+  /* 1. Header & Nav Adjustments */
+  .nav__toggle {
+    display: block;
+    /* Show hamburger icon */
+    z-index: 1001;
+    /* Ensure button is clickable */
+  }
+
+  /* 2. THE MENU (HIDDEN BY DEFAULT) */
+  .nav__menu {
+    position: fixed;
+    top: -1000%;
+    /* Force it OFF-SCREEN by default */
+    left: 0;
+    width: 100%;
+
+    /* Transparent Glass Effect */
+    background-color: rgba(15, 20, 30, 0.85);
+    /* Dark semi-transparent */
+    backdrop-filter: blur(12px);
+    /* Blur effect */
+    -webkit-backdrop-filter: blur(12px);
+
+    padding: 4rem 0 3rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    transition: top 0.4s ease-in-out;
+    /* Smooth Slide */
+    z-index: var(--z-fixed);
+    border-radius: 0 0 1.5rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* 3. THE CLASS THAT SHOWS THE MENU (Added by JS) */
+  .nav__menu.show-menu {
+    top: var(--header-height);
+    /* Bring it down to visible area */
+  }
+
+  .nav__list {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 2rem;
+  }
+
+  /* Layout Fixes */
+  .hero__wrapper, .about__wrapper, .service__wrapper, .footer__wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__content {
+    order: 2;
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .hero__img {
+    order: 1;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+
+  .hero__info {
+    justify-content: center;
+  }
+
+  .skills__wrapper {
+    justify-content: space-between;
+  }
+
+  .footer__wrapper {
+    gap: 2.5rem;
+  }
+}
+
+/* Small Phone Adjustments */
+@media screen and (max-width: 576px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .hero__title {
+    font-size: 2rem;
+  }
+
+  .hero__img {
+    max-width: 280px;
+  }
+
+  .about__wrapper {
+    gap: 3rem;
+  }
+
+  .skills__wrapper {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .footer__wrapper {
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .footer__social-list {
+    justify-content: center;
+  }
 }
