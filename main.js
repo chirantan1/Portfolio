@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
           navLinks = document.querySelectorAll('.nav__link');
 
     /* Validate if constant exists */
-    if(navToggle){
+    if(navToggle && navMenu){
         navToggle.addEventListener('click', () =>{
             // Adds the class defined in CSS to show the menu
             navMenu.classList.toggle('show-menu')
@@ -22,29 +22,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ==================== REMOVE MENU MOBILE ON LINK CLICK ==================== */
     // Loops through every link (Home, About, etc.) and adds a click event
-    navLinks.forEach(n => {
-        n.addEventListener('click', () => {
-            // 1. Remove the class that makes the menu visible
-            navMenu.classList.remove('show-menu')
-            
-            // 2. Reset the hamburger icon
-            if(navToggle){
-                navToggle.classList.replace('ri-close-line', 'ri-menu-3-line')
-            }
+    if(navLinks.length > 0){
+        navLinks.forEach(n => {
+            n.addEventListener('click', () => {
+                // 1. Remove the class that makes the menu visible
+                if(navMenu) navMenu.classList.remove('show-menu')
+                
+                // 2. Reset the hamburger icon
+                if(navToggle){
+                    navToggle.classList.replace('ri-close-line', 'ri-menu-3-line')
+                }
+            })
         })
-    })
+    }
 
     /* ==================== CHANGE BACKGROUND HEADER ==================== */
     const header = document.getElementById('header')
     
-    window.addEventListener('scroll', () => {
-        // When the scroll is greater than 50 viewport height, add the scroll-header class
-        if (window.scrollY >= 50) {
-            header.classList.add('header--scroll')
-        } else {
-            header.classList.remove('header--scroll')
-        }
-    })
+    if(header){
+        window.addEventListener('scroll', () => {
+            // When the scroll is greater than 50 viewport height, add the scroll-header class
+            if (window.scrollY >= 50) {
+                header.classList.add('header--scroll')
+            } else {
+                header.classList.remove('header--scroll')
+            }
+        })
+    }
 
     /* ==================== THEME TOGGLE (DARK/LIGHT) ==================== */
     const themeToggle = document.getElementById("checkbox");
@@ -133,4 +137,61 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /* ==================== SMOOTH SCROLL FOR NAV LINKS ==================== */
+    // Smooth scroll to sections when clicking nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const headerHeight = header ? header.offsetHeight : 0;
+                const targetPosition = targetElement.offsetTop - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    /* ==================== ACTIVE NAV LINK ON SCROLL ==================== */
+    // Highlight active section in navigation
+    const sections = document.querySelectorAll('section[id]');
+    
+    if(sections.length > 0){
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                
+                if(window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if(link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    }
+
+    /* ==================== ADD ACTIVE CLASS TO NAV LINKS (CSS) ==================== */
+    // You can add this to your CSS:
+    // .nav__link.active {
+    //     color: var(--first-color);
+    // }
+    // .nav__link.active::after {
+    //     width: 100%;
+    // }
+
+    console.log('Portfolio initialized successfully! 🚀');
 });
